@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#697889',
     marginLeft: theme.spacing(1),
     fontSize:'17px',
+    cursor: 'pointer',
   },
   addIcon:{
       position:'relative',
@@ -29,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ColumnCards = ({title, cards}) => {
+const ColumnCards = ({
+  title, 
+  cards, 
+  onAddCard
+}) => {
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -41,7 +46,7 @@ const ColumnCards = ({title, cards}) => {
         </Typography>
         {
            cards.length > 0 && 
-           cards.map((card,idx)=>{
+           cards.map((card,idx)=> {
             return(
                 <TaskCard 
                     key={'task-'+idx}
@@ -54,6 +59,7 @@ const ColumnCards = ({title, cards}) => {
         <Typography  
         className={classes.addBtn}
         variant="subtitle2"
+        onClick={onAddCard}
         >
             <AddIcon className={classes.addIcon}/> Add another card
         </Typography>
@@ -71,7 +77,8 @@ ColumnCards.propTypes = {
     cards: PropTypes.arrayOf(PropTypes.shape({
         labelColor: PropTypes.string,
         description: PropTypes.string
-    })),   
+    })),
+    onAddCard: PropTypes.func,   
 };
 
 export default ColumnCards;
