@@ -22,15 +22,15 @@ const MockDataCards = [
 const columnTasks = [
   {
     title: "Column 1",
-    tasks: MockDataCards ,  
+    tasks: [...MockDataCards] ,  
   },
   {
     title: "Column 2",
-    tasks: MockDataCards ,  
+    tasks: [...MockDataCards] ,  
   },
   {
     title: "DONE",
-    tasks: MockDataCards ,  
+    tasks: [...MockDataCards] ,  
   }
 ];
 
@@ -49,7 +49,7 @@ export const TaskReducer = (state = initState, action) => {
     case SET_TASK_LIST:
         return {
           ...state,
-          list: action.list
+          list: [...action.list]
         }; 
     default:
       return state;
