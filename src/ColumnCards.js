@@ -47,13 +47,12 @@ const ColumnCards = ({
         </Typography>
         {
            cards.length > 0 && 
-           cards.map((card,idx)=> {
+           cards.map((task)=> {
             return(
                 <TaskCard 
-                    key={'task-'+idx}
-                    labelColor={card.labelColor}
-                    description={card.description}
-                    onEditCard={()=> onEditCard(card, idx)}
+                    key={task.id}
+                    task={task}
+                    onClick={()=> onEditCard(task)}
                 />
             );
            })
@@ -80,7 +79,7 @@ ColumnCards.propTypes = {
         labelColor: PropTypes.string,
         description: PropTypes.string
     })),
-    onAddCard: PropTypes.func,   
+    onAddCard: PropTypes.func,  
 };
 
 export default ColumnCards;

@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Box, Grid, Dialog } from '@material-ui/core';
+import { Paper, Typography, Box, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
 
 const CATEGORY_COLOR = {
     green: '#1dc33b',
@@ -40,43 +39,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TaskCard = ({
-    labelColor, 
-    description,
-    onEditCard
+  task,
+  onClick,
 }) => {
   const classes = useStyles();
   const [ isEditHover, setIsEditHover ] = useState(false);
-  const [ isEditionMode, setIsEditionMode ] = useState(false);
   const CardGrid = () =>{
     return(
       <Paper className={classes.paper} >
         <Grid container spacing={0}>
             <Grid item xs={11}>
-                <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[labelColor]}} />
+                <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[task.labelColor]}} />
             </Grid>
             <Grid item xs={1}>
-                {
-                  isEditionMode && 
-                  <CloseIcon
-                    className={classes.closeIcon} 
-                    onClick={()=> setIsEditionMode(false)}
-                  />
-                }
-                {
-                  !isEditionMode &&
-                  <EditIcon 
-                  className={classes.closeIcon} 
-                  style={{visibility: !isEditHover ? 'hidden' : 'visible' }}
-                  />
-                }
+                <EditIcon 
+                className={classes.closeIcon} 
+                style={{visibility: !isEditHover ? 'hidden' : 'visible' }}
+                />
             </Grid>
             <Grid item xs={12}>
-                <Typography
-                className={classes.title}
-                variant="body2"
-                >
-                  {description}
-                </Typography>
+              <Typography
+              className={classes.title}
+              variant="body2"
+              >
+                {task.description}
+              </Typography>
             </Grid>
         </Grid>
       </Paper>
@@ -84,27 +71,24 @@ const TaskCard = ({
   }
   return (
     <div  
-        onMouseEnter={()=> setIsEditHover(true)} 
-        onMouseLeave={()=> setIsEditHover(false)}
-        onClick={()=>{
-          onEditCard();
-          if(!isEditionMode){ setIsEditionMode(!isEditionMode); } 
-        }}
+      onMouseEnter={()=> setIsEditHover(true)} 
+      onMouseLeave={()=> setIsEditHover(false)}
+      onClick={onClick}
     >
-        { !isEditionMode && <CardGrid />}
-        { isEditionMode &&
-          <Dialog aria-labelledby="task-edit" open={isEditionMode} onClose={()=> setIsEditionMode(false)}>
-            <CardGrid />
-          </Dialog>
-        }
+      <CardGrid />
     </div>
   );
 }
 
+const taskShape = PropTypes.shape({
+  id: PropTypes.string,
+  labelColor: PropTypes.oneOf(['green', 'yellow', 'red']),
+  description: PropTypes.string
+});
+
 TaskCard.propTypes = {
-    labelColor: PropTypes.oneOf(['green', 'yellow', 'red']),
-    description: PropTypes.string,
-    onEditCard: PropTypes.func,
+    task: taskShape,
+    onClick: PropTypes.func,
 };
 
 export default TaskCard;

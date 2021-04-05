@@ -1,13 +1,22 @@
 import { connect } from 'react-redux';
 import App from '../App';
-import { setTaskList } from '../redux/actions/task';
+import { 
+    setTaskList, 
+    setCurrentTask,
+    setEditionMode,
+} from '../redux/actions/task';
 import { 
     getTaskList,
+    getCurrentTask,
+    getIsEditionMode,
 } from "../redux/reducers/task";
+import { v4 as uuidv4 } from 'uuid';
 
 const mapStateToProps = state => {
     return {
         columnTasks: getTaskList(state),
+        currentTask: getCurrentTask(state),
+        isEditionMode: getIsEditionMode(state),
     }
 };
 
@@ -15,18 +24,21 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAddCard: (columnTasks, column, idx)=> {
-            column.tasks.push({
+            const newTask = {
+                id: uuidv4(), 
                 labelColor: 'green',
                 description: '',
-            });
-            columnTasks[idx] = column;
+            };
+            columnTasks[idx].tasks.push(newTask);
             dispatch(setTaskList(columnTasks));
+            dispatch(setCurrentTask(newTask));
         },
-        onEditCard:(columnTasks, column, idx, task, idxT)=> {
-            column.tasks[idxT].labelColor = task.labelColor;
-            column.tasks[idxT].description = task.description;
-            columnTasks[idx] = column;
-            dispatch(setTaskList(columnTasks));
+        onEditCard:(task)=> {
+            dispatch(setEditionMode(true));
+            dispatch(setCurrentTask(task));
+        },
+        onCancelEdit:()=> {
+            dispatch(setEditionMode(false));
         },
     };
 };
