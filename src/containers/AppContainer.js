@@ -22,6 +22,12 @@ const mapDispatchToProps = dispatch => {
             columnTasks[idx] = column;
             dispatch(setTaskList(columnTasks));
         },
+        onEditCard:(columnTasks, column, idx, task, idxT)=> {
+            column.tasks[idxT].labelColor = task.labelColor;
+            column.tasks[idxT].description = task.description;
+            columnTasks[idx] = column;
+            dispatch(setTaskList(columnTasks));
+        },
     };
 };
 export default connect(

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = ({columnTasks, onAddCard}) => {
+const App = ({columnTasks, onAddCard, onEditCard}) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -27,6 +27,7 @@ const App = ({columnTasks, onAddCard}) => {
                 title={column.title} 
                 cards={column.tasks} 
                 onAddCard={()=> onAddCard(columnTasks, column, idx)}
+                onEditCard={(task, idxT)=> onEditCard(columnTasks, column, idx,task, idxT)}
                 />
               </Grid>
             );
@@ -39,12 +40,12 @@ const App = ({columnTasks, onAddCard}) => {
 
 App.defaultProps = {
   columnTasks:[],
-  onAddCard: ()=>{},
 };
 
 App.propTypes = {
   columnTasks: PropTypes.array,
-  onAddCard: PropTypes.func,
+  onAddCard: PropTypes.func.isRequired,
+  onEditCard: PropTypes.func.isRequired,
 };
 
 export default App;

@@ -8,11 +8,9 @@ import { MainStore } from './redux/store/configureStore';
 const store = MainStore();
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <App /> 
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 

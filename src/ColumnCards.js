@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 const ColumnCards = ({
   title, 
   cards, 
-  onAddCard
+  onAddCard,
+  onEditCard,
 }) => {
   const classes = useStyles();
   return (
@@ -52,6 +53,7 @@ const ColumnCards = ({
                     key={'task-'+idx}
                     labelColor={card.labelColor}
                     description={card.description}
+                    onEditCard={()=> onEditCard(card, idx)}
                 />
             );
            })
