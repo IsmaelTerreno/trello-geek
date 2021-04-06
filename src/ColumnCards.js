@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Droppable = ({children})=>{
+const Droppable = ({children, onDragItemTask})=>{
   const [ { isOver }, drop] = useDrop(
     () => ({
       accept: ItemTypes.TASK,
       drop: (item) => {
-        console.log(children.props.task.id);
-        console.log(item);
+        const dataDroppable = children.props.task;
+        const dataDragable = item;
+        onDragItemTask(dataDroppable, dataDragable);
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -63,6 +64,7 @@ const ColumnCards = ({
   cards, 
   onAddCard,
   onEditCard,
+  onDragItemTask,
 }) => {
   const classes = useStyles();
   return (
@@ -77,7 +79,10 @@ const ColumnCards = ({
            cards.length > 0 && 
            cards.map((task)=> {
             return(
-                <Droppable key={task.id}>
+                <Droppable 
+                  key={task.id}
+                  onDragItemTask={onDragItemTask}
+                >
                   <TaskCard
                     task={task}
                     onClickEdit={()=> onEditCard(task)}
@@ -103,12 +108,13 @@ ColumnCards.defaultProps = {
 };
 
 ColumnCards.propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     cards: PropTypes.arrayOf(PropTypes.shape({
         labelColor: PropTypes.string,
         description: PropTypes.string
     })),
-    onAddCard: PropTypes.func,  
+    onAddCard: PropTypes.func.isRequired,
+    onDragItemTask: PropTypes.func.isRequired,
 };
 
 export default ColumnCards;

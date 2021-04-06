@@ -45,6 +45,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(saveTask(task));    
             dispatch(setEditionMode(false));
         },
+        onDragItemTask: (dataDroppable, dataDragable)=> {
+            console.log(dataDroppable);
+            console.log(dataDragable);
+        },
     };
 };
 export default connect(
