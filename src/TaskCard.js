@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Box, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
+import { useDrag } from 'react-dnd';
 
 const CATEGORY_COLOR = {
     green: '#1dc33b',
@@ -38,15 +39,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export const ItemTypes = {
+  TASK: 'task'
+}
+
 const TaskCard = ({
   task,
-  onClick,
+  onClickEdit,
 }) => {
   const classes = useStyles();
   const [ isEditHover, setIsEditHover ] = useState(false);
-  const CardGrid = () =>{
-    return(
-      <Paper className={classes.paper} >
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.TASK,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging()
+    })
+  }));
+  return (
+    <div  
+      onMouseEnter={()=> setIsEditHover(true)} 
+      onMouseLeave={()=> setIsEditHover(false)}
+    >
+      <Paper 
+      className={classes.paper} 
+      ref={drag}
+      style={{
+        visibility: isDragging ? 'hidden' : 'visible',
+        cursor: 'move',
+      }}
+      >
         <Grid container spacing={0}>
             <Grid item xs={11}>
                 <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[task.labelColor]}} />
@@ -54,7 +75,8 @@ const TaskCard = ({
             <Grid item xs={1}>
                 <EditIcon 
                 className={classes.closeIcon} 
-                style={{visibility: !isEditHover ? 'hidden' : 'visible' }}
+                style={{visibility: !isEditHover || isDragging ? 'hidden' : 'visible' }}
+                onClick={onClickEdit}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -67,15 +89,6 @@ const TaskCard = ({
             </Grid>
         </Grid>
       </Paper>
-    );
-  }
-  return (
-    <div  
-      onMouseEnter={()=> setIsEditHover(true)} 
-      onMouseLeave={()=> setIsEditHover(false)}
-      onClick={onClick}
-    >
-      <CardGrid />
     </div>
   );
 }
@@ -88,7 +101,7 @@ const taskShape = PropTypes.shape({
 
 TaskCard.propTypes = {
     task: taskShape,
-    onClick: PropTypes.func,
+    onClickEdit: PropTypes.func,
 };
 
 export default TaskCard;

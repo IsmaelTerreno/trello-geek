@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const columnTasks = [
   {
+    id: uuidv4(),
     title: "Column 1",
     tasks: [
       {
@@ -31,6 +32,7 @@ const columnTasks = [
     ],  
   },
   {
+    id: uuidv4(),
     title: "Column 2",
     tasks: [
       {
@@ -46,6 +48,7 @@ const columnTasks = [
     ],  
   },
   {
+    id: uuidv4(),
     title: "DONE",
     tasks: [
       {

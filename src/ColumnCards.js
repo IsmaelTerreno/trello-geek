@@ -2,8 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import TaskCard from './TaskCard';
+import TaskCard, { ItemTypes } from './TaskCard';
 import AddIcon from '@material-ui/icons/Add';
+import { useDrop } from 'react-dnd';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +38,20 @@ const ColumnCards = ({
   onEditCard,
 }) => {
   const classes = useStyles();
+  const canDropTask = (drop)=>{
+    return true;
+  };
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.TASK,
+      drop: () => console.log('is drop'),
+      canDrop: () => canDropTask(drop),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop()
+      })
+    })
+  )
   return (
     <Paper className={classes.paper}>
         <Typography  
@@ -49,11 +64,20 @@ const ColumnCards = ({
            cards.length > 0 && 
            cards.map((task)=> {
             return(
-                <TaskCard 
-                    key={task.id}
+                <div
+                  key={task.id}
+                  ref={drop}
+                  style={{
+                    borderRadius:'5px',
+                    transition: 'background-color 0.5s',
+                    backgroundColor: (!isOver && canDrop) ? '#ccc': 'transparent',
+                  }}
+                >
+                  <TaskCard
                     task={task}
-                    onClick={()=> onEditCard(task)}
-                />
+                    onClickEdit={()=> onEditCard(task)}
+                  />
+                </div>
             );
            })
         }
