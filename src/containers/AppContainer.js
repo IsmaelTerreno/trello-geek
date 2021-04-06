@@ -5,6 +5,7 @@ import {
     setCurrentTask,
     setEditionMode,
     saveTask,
+    replaceOrderTask,
 } from '../redux/actions/task';
 import { 
     getTaskList,
@@ -45,9 +46,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(saveTask(task));    
             dispatch(setEditionMode(false));
         },
-        onDragItemTask: (dataDroppable, dataDragable)=> {
-            console.log(dataDroppable);
-            console.log(dataDragable);
+        onDragItemTask: (originalTask, newTask)=> {
+            console.log(originalTask);
+            console.log(newTask);
+            dispatch(replaceOrderTask({...originalTask}, {...newTask}));
         },
     };
 };

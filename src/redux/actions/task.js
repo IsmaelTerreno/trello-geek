@@ -2,6 +2,7 @@ export const SET_CURRENT_TASK = 'SET_CURRENT_TASK';
 export const SET_TASK_LIST = 'SET_TASK_LIST';
 export const SET_EDITION_MODE = 'SET_EDITION_MODE';
 export const SAVE_TASK = 'SAVE_TASK';
+export const REPLACE_ORDER_TASK = 'REPLACE_ORDER_TASK';
 
 export const setCurrentTask = (task) => {
   return {
@@ -28,5 +29,13 @@ export const saveTask = (task) => {
   return {
     type: SAVE_TASK,
     task
+  };
+};
+
+export const replaceOrderTask = (originalTask, newTask) => {
+  return {
+    type: REPLACE_ORDER_TASK,
+    originalTask,
+    newTask,
   };
 };

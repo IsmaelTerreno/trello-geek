@@ -40,6 +40,7 @@ const Droppable = ({children, onDragItemTask})=>{
         const dataDragable = item;
         onDragItemTask(dataDroppable, dataDragable);
       },
+      canDrop: (item) => item.id !== children.props.task.id,
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
       })

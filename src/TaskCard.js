@@ -55,6 +55,7 @@ const TaskCard = ({
       id: task.id,
       labelColor: task.labelColor,
       description: task.description,
+      order: task.order,
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
