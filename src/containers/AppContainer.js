@@ -4,6 +4,7 @@ import {
     setTaskList, 
     setCurrentTask,
     setEditionMode,
+    saveTask,
 } from '../redux/actions/task';
 import { 
     getTaskList,
@@ -20,10 +21,9 @@ const mapStateToProps = state => {
     }
 };
 
-
 const mapDispatchToProps = dispatch => {
     return {
-        onAddCard: (columnTasks, column, idx)=> {
+        onAddCard: (columnTasks, idx)=> {
             const newTask = {
                 id: uuidv4(), 
                 labelColor: 'green',
@@ -31,6 +31,7 @@ const mapDispatchToProps = dispatch => {
             };
             columnTasks[idx].tasks.push(newTask);
             dispatch(setTaskList(columnTasks));
+            dispatch(setEditionMode(true));
             dispatch(setCurrentTask(newTask));
         },
         onEditCard:(task)=> {
@@ -38,6 +39,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(setCurrentTask(task));
         },
         onCancelEdit:()=> {
+            dispatch(setEditionMode(false));
+        },
+        onSaveTask: (task)=> {
+            dispatch(saveTask(task));    
             dispatch(setEditionMode(false));
         },
     };

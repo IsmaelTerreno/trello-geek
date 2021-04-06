@@ -2,40 +2,58 @@ import {
   SET_CURRENT_TASK,
   SET_TASK_LIST,
   SET_EDITION_MODE,
+  SAVE_TASK,
 } from '../actions/task';
 import {createSelector} from 'reselect';
 import { v4 as uuidv4 } from 'uuid';
 
-const MockDataCards = [
-  {
-      id: uuidv4(),
-      labelColor: 'green',
-      description: 'This is a Todo list with items that can be marked off',
-  },
-  {
-      id: uuidv4(),
-      labelColor: 'yellow',
-      description: 'You can categorize each item with a Color (Red, Yellow, Green)',
-  },
-  {
-      id: uuidv4(),
-      labelColor: 'red',
-      description: 'Hover on a item to edit',
-  },
-];
+
 
 const columnTasks = [
   {
     title: "Column 1",
-    tasks: [...MockDataCards] ,  
+    tasks: [
+      {
+          id: uuidv4(),
+          labelColor: 'green',
+          description: 'This is a Todo list with items that can be marked off',
+      },
+      {
+          id: uuidv4(),
+          labelColor: 'yellow',
+          description: 'You can categorize each item with a Color (Red, Yellow, Green)',
+      },
+      {
+          id: uuidv4(),
+          labelColor: 'red',
+          description: 'Hover on a item to edit',
+      },
+    ],  
   },
   {
     title: "Column 2",
-    tasks: [...MockDataCards] ,  
+    tasks: [
+      {
+          id: uuidv4(),
+          labelColor: 'green',
+          description: 'You can click and drag items up and down the list',
+      },
+      {
+          id: uuidv4(),
+          labelColor: 'yellow',
+          description: 'As well drag items from one column to the other',
+      }
+    ],  
   },
   {
     title: "DONE",
-    tasks: [...MockDataCards] ,  
+    tasks: [
+      {
+          id: uuidv4(),
+          labelColor: 'red',
+          description: 'As well rename the Columns',
+      }
+    ]  
   }
 ];
 
@@ -61,6 +79,17 @@ export const TaskReducer = (state = initState, action) => {
       return {
         ...state,
         isEditionMode: action.isEditionMode
+      };
+    case SAVE_TASK:
+      const updatedTaskList = {...state}.list.map((columnX)=>{
+        columnX.tasks = columnX.tasks.map((taskX)=>{
+          return (taskX.id === action.task.id) ? action.task : taskX; 
+        })
+        return columnX;
+      });
+      return {
+        ...state,
+        list: updatedTaskList,
       };   
     default:
       return state;

@@ -21,6 +21,7 @@ const App = ({
   onCancelEdit, 
   currentTask,
   isEditionMode,
+  onSaveTask,
 }) => {
   const classes = useStyles();
   return (
@@ -34,7 +35,7 @@ const App = ({
                 <ColumnCards 
                 title={column.title} 
                 cards={column.tasks} 
-                onAddCard={()=> onAddCard(columnTasks, column, idx)}
+                onAddCard={()=> onAddCard(columnTasks, idx)}
                 onEditCard={(task)=> onEditCard(task)}
                 />
               </Grid>
@@ -46,7 +47,7 @@ const App = ({
         currentTask && 
         <TaskCardForm 
           task={currentTask}
-          onSave={(task)=> onEditCard(task)}
+          onSave={(task)=> onSaveTask(task)}
           onClose={onCancelEdit}
           onCancel={onCancelEdit}
           open={isEditionMode}
@@ -71,6 +72,7 @@ App.propTypes = {
   }),
   isEditionMode: PropTypes.bool,
   onCancelEdit: PropTypes.func.isRequired,
+  onSaveTask: PropTypes.func.isRequired,
 };
 
 export default App;

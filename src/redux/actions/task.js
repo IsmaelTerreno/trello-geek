@@ -1,6 +1,7 @@
 export const SET_CURRENT_TASK = 'SET_CURRENT_TASK';
 export const SET_TASK_LIST = 'SET_TASK_LIST';
 export const SET_EDITION_MODE = 'SET_EDITION_MODE';
+export const SAVE_TASK = 'SAVE_TASK';
 
 export const setCurrentTask = (task) => {
   return {
@@ -23,3 +24,9 @@ export const setEditionMode = (isEditionMode) => {
   };
 };
 
+export const saveTask = (task) => {
+  return {
+    type: SAVE_TASK,
+    task
+  };
+};

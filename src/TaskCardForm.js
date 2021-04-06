@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Box, Grid, Dialog, TextField, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
+import { v4 as uuidv4 } from 'uuid';
 
 const CATEGORY_COLOR = {
     green: '#1dc33b',
@@ -46,7 +47,19 @@ const TaskCardForm = ({
   onCancel,
 }) => {
   const classes = useStyles();
-  const [ descriptionInput, setDescriptionInput ] = useState(task.description);
+  const newTask = () => ({
+    id: uuidv4(), 
+    labelColor: 'green',
+    description: '',
+  });
+  const [ taskInput, setTaskInput ] = useState({...task});
+  useEffect(() => {
+    if(!open){
+      setTaskInput(newTask());
+    } else {
+      setTaskInput({...task})
+    }
+  },[open, task]);
   const CardGrid = () => {
     
     return(
@@ -65,13 +78,16 @@ const TaskCardForm = ({
               <TextField
                 multiline
                 rows={4}
-                value={ descriptionInput }
-                onChange={ (event)=> setDescriptionInput(event.target.value)}
+                value={ taskInput.description }
+                onChange={ (event)=> setTaskInput({...taskInput, description: event.target.value})}
                 variant="outlined"
               />  
             </Grid>
             <Grid item xs={3}>
-              <Button variant="contained" color="primary" onClick={()=> onSave(task)}>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={()=> onSave({...taskInput})}>
                 Save
               </Button>
             </Grid>
