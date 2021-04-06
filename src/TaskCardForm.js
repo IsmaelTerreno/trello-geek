@@ -1,8 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Box, Grid, Dialog, TextField, Button } from '@material-ui/core';
+import { 
+  Paper, 
+  Box, 
+  Grid, 
+  Dialog, 
+  TextField, 
+  Button, 
+  Select,
+  MenuItem,
+ } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import CloseIcon from '@material-ui/icons/Close';
 import { v4 as uuidv4 } from 'uuid';
 
 const CATEGORY_COLOR = {
@@ -10,7 +18,7 @@ const CATEGORY_COLOR = {
     yellow: '#f7d400',
     red: '#fd4d39',  
 };
-
+const menuOptions = Object.keys(CATEGORY_COLOR); 
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1),
@@ -23,11 +31,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   label:{
-    backgroundColor: CATEGORY_COLOR.green,
-    padding: '4px',
+    padding: '14px',
     width: '37px',
     borderRadius: '5px',
-    marginBottom: '5px'
+    marginLeft:'5px',
+  },
+  descriptionInput:{
+    marginTop: '15px',
+    marginBottom: '15px'
   },
   editIcon:{
     fontSize:'15px',
@@ -68,30 +79,41 @@ const TaskCardForm = ({
         event.preventDefault();
         onSave({
           ...taskInput,
-          description: event.target[0].value
+          labelColor: event.target[0].value,
+          description: event.target[1].value,
         });
       }}>
         <Paper className={classes.paper} >
           <Grid container spacing={0}>
-              <Grid item xs={11}>
-                <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[task.labelColor]}} />
-              </Grid>
-              <Grid item xs={1}>
-                <CloseIcon
-                  className={classes.closeIcon} 
-                  onClick={()=> onClose()}
-                />
+              <Grid item xs={12}>
+                <Select
+                  fullWidth
+                  id="categoryColorInput"
+                  defaultValue={taskInput.labelColor}
+                >
+                  { 
+                    menuOptions.map((menuItem)=>{
+                      return(
+                        <MenuItem value={menuItem}>
+                          <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[menuItem]}} />
+                        </MenuItem>
+                      );
+                    })
+                  }
+                </Select>  
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   id="taskDescriptionInput"
                   multiline
                   rows={4}
+                  fullWidth
                   variant="outlined"
                   defaultValue={taskInput.description}
+                  className={classes.descriptionInput} 
                 />  
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={9}>
                 <Button 
                   variant="contained" 
                   color="primary" 
@@ -99,7 +121,7 @@ const TaskCardForm = ({
                   Save
                 </Button>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={3}>
                 <Button variant="contained" color="secondary" onClick={onCancel}>
                   Cancel
                 </Button> 
