@@ -61,43 +61,52 @@ const TaskCardForm = ({
     }
   },[open, task]);
   const CardGrid = () => {
-    
     return(
-      <Paper className={classes.paper} >
-        <Grid container spacing={0}>
-            <Grid item xs={11}>
-              <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[task.labelColor]}} />
-            </Grid>
-            <Grid item xs={1}>
-              <CloseIcon
-                className={classes.closeIcon} 
-                onClick={()=> onClose()}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                multiline
-                rows={4}
-                value={ taskInput.description }
-                onChange={ (event)=> setTaskInput({...taskInput, description: event.target.value})}
-                variant="outlined"
-              />  
-            </Grid>
-            <Grid item xs={3}>
-              <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={()=> onSave({...taskInput})}>
-                Save
-              </Button>
-            </Grid>
-            <Grid item xs={9}>
-              <Button variant="contained" color="secondary" onClick={onCancel}>
-                Cancel
-              </Button> 
-            </Grid>
-        </Grid>
-      </Paper>
+      <form 
+      id="taskForm"
+      onSubmit={(event)=>{
+        event.preventDefault();
+        onSave({
+          ...taskInput,
+          description: event.target[0].value
+        });
+      }}>
+        <Paper className={classes.paper} >
+          <Grid container spacing={0}>
+              <Grid item xs={11}>
+                <Box component="div" className={classes.label} style={{backgroundColor: CATEGORY_COLOR[task.labelColor]}} />
+              </Grid>
+              <Grid item xs={1}>
+                <CloseIcon
+                  className={classes.closeIcon} 
+                  onClick={()=> onClose()}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="taskDescriptionInput"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  defaultValue={taskInput.description}
+                />  
+              </Grid>
+              <Grid item xs={3}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  type="submit">
+                  Save
+                </Button>
+              </Grid>
+              <Grid item xs={9}>
+                <Button variant="contained" color="secondary" onClick={onCancel}>
+                  Cancel
+                </Button> 
+              </Grid>
+          </Grid>
+        </Paper>
+      </form>
     );
   }
   return (
