@@ -51,6 +51,11 @@ const TaskCard = ({
   const [ isEditHover, setIsEditHover ] = useState(false);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TASK,
+    item: { 
+      id: task.id,
+      labelColor: task.labelColor,
+      description: task.description,
+    },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
     })

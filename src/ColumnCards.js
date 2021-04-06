@@ -32,24 +32,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Droppable = ({children})=>{
-  const [{ isOver, canDrop }, drop] = useDrop(
+  const [ { isOver }, drop] = useDrop(
     () => ({
       accept: ItemTypes.TASK,
-      drop: () => console.log('is drop'),
-      canDrop: () => true,
+      drop: (item) => {
+        console.log(children.props.task.id);
+        console.log(item);
+      },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
-        canDrop: !!monitor.canDrop()
       })
     })
-  )
+  );
   return (
     <div            
       ref={drop}
       style={{
         borderRadius:'5px',
         transition: 'background-color 0.5s',
-        backgroundColor: (!isOver && canDrop) ? '#ccc': 'transparent',
+        backgroundColor: (isOver) ? '#ccc': 'transparent',
       }}
     >
       {children}
