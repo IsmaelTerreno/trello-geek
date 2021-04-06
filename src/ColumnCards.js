@@ -31,6 +31,32 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const Droppable = ({children})=>{
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.TASK,
+      drop: () => console.log('is drop'),
+      canDrop: () => true,
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop()
+      })
+    })
+  )
+  return (
+    <div            
+      ref={drop}
+      style={{
+        borderRadius:'5px',
+        transition: 'background-color 0.5s',
+        backgroundColor: (!isOver && canDrop) ? '#ccc': 'transparent',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 const ColumnCards = ({
   title, 
   cards, 
@@ -38,20 +64,6 @@ const ColumnCards = ({
   onEditCard,
 }) => {
   const classes = useStyles();
-  const canDropTask = (drop)=>{
-    return true;
-  };
-  const [{ isOver, canDrop }, drop] = useDrop(
-    () => ({
-      accept: ItemTypes.TASK,
-      drop: () => console.log('is drop'),
-      canDrop: () => canDropTask(drop),
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-        canDrop: !!monitor.canDrop()
-      })
-    })
-  )
   return (
     <Paper className={classes.paper}>
         <Typography  
@@ -64,20 +76,12 @@ const ColumnCards = ({
            cards.length > 0 && 
            cards.map((task)=> {
             return(
-                <div
-                  key={task.id}
-                  ref={drop}
-                  style={{
-                    borderRadius:'5px',
-                    transition: 'background-color 0.5s',
-                    backgroundColor: (!isOver && canDrop) ? '#ccc': 'transparent',
-                  }}
-                >
+                <Droppable key={task.id}>
                   <TaskCard
                     task={task}
                     onClickEdit={()=> onEditCard(task)}
                   />
-                </div>
+                </Droppable>
             );
            })
         }
