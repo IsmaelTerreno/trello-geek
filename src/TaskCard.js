@@ -50,17 +50,19 @@ const TaskCard = ({
   const classes = useStyles();
   const [ isEditHover, setIsEditHover ] = useState(false);
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.TASK,
-    item: { 
-      id: task.id,
-      labelColor: task.labelColor,
-      description: task.description,
-      order: task.order,
-    },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging()
-    })
-  }));
+      type: ItemTypes.TASK,
+      item: { 
+        id: task.id,
+        labelColor: task.labelColor,
+        description: task.description,
+        order: task.order,
+      },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging()
+      })
+    }),
+    [task]
+  );
   return (
     <div  
       onMouseEnter={()=> setIsEditHover(true)} 

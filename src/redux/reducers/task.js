@@ -110,18 +110,14 @@ export const TaskReducer = (state = initState, action) => {
         list: updatedTaskList,
       };
     case REPLACE_ORDER_TASK:
-      const replacedOrderTaskList = {...state}.list.map((columnX)=>{
-        const tasksOrdered = columnX.tasks.map((taskX) => {
-          let taskUpdate = {...taskX};
-          if (taskUpdate.id === action.newTask.id) {
-            taskUpdate.order = action.originalTask.order;
-          } 
-          if (taskUpdate.id === action.originalTask.id) {
-            taskUpdate.order = action.newTask.order;
-          };
-          return taskUpdate; 
-        }).sort(byTaskOrder);
-        columnX.tasks = tasksOrdered;
+      const replacedOrderTaskList = {...state}.list.map((columnX)=> {
+        const taskA = columnX.tasks.find(x => x.id === action.newTask.id);
+        const taskB = columnX.tasks.find(x => x.id === action.originalTask.id);
+        if(taskA && taskB){
+          taskA.order = action.originalTask.order;
+          taskB.order = action.newTask.order;
+          columnX.tasks = columnX.tasks.sort(byTaskOrder);
+        }
         return columnX;
       });
       return {

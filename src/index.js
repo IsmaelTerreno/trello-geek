@@ -11,11 +11,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 const store = MainStore();
 
 ReactDOM.render(
+  <DndProvider backend={HTML5Backend}>
     <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
         <App /> 
-      </DndProvider>
-    </Provider>,
+    </Provider>
+  </DndProvider>,
   document.getElementById('root')
 );
 

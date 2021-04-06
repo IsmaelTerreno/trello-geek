@@ -39,6 +39,7 @@ const App = ({
                 onAddCard={()=> onAddCard(columnTasks, idx)}
                 onEditCard={(task)=> onEditCard(task)}
                 onDragItemTask={onDragItemTask}
+                columnTasks={columnTasks}
                 />
               </Grid>
             );
