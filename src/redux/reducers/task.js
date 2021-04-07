@@ -12,10 +12,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-let columnTasks = [
+let columnTasksDemoData = [
   {
     id: uuidv4(),
-    title: "Column 1",
+    title: "Todo",
     order: 1,
     tasks: [
       {
@@ -40,7 +40,7 @@ let columnTasks = [
   },
   {
     id: uuidv4(),
-    title: "Column 2",
+    title: "In progress",
     order: 2,
     tasks: [
       {
@@ -59,7 +59,7 @@ let columnTasks = [
   },
   {
     id: uuidv4(),
-    title: "DONE",
+    title: "Done",
     order: 3,
     tasks: [
       {
