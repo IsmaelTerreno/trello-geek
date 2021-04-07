@@ -29,6 +29,7 @@ const App = ({
   isEditionMode,
   onSaveTask,
   onDragItemTask,
+  onEditColumnName,
 }) => {
   const classes = useStyles();
   return (
@@ -57,6 +58,7 @@ const App = ({
                 onDragItemTask={onDragItemTask}
                 columnTasks={columnTasks}
                 columnId={column.id}
+                onEditColumnName={onEditColumnName}
                 />
               </Grid>
             );
@@ -94,6 +96,7 @@ App.propTypes = {
   onCancelEdit: PropTypes.func.isRequired,
   onSaveTask: PropTypes.func.isRequired,
   onDragItemTask: PropTypes.func.isRequired,
+  onEditColumnName: PropTypes.func.isRequired,
 };
 
 export default App;

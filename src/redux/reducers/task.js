@@ -4,6 +4,7 @@ import {
   SET_EDITION_MODE,
   SAVE_TASK,
   REPLACE_ORDER_TASK,
+  RENAME_COLUMN_NAME,
 } from '../actions/task';
 import {createSelector} from 'reselect';
 import { v4 as uuidv4 } from 'uuid';
@@ -156,7 +157,18 @@ export const TaskReducer = (state = initState, action) => {
       return {
         ...state,
         list: [...replacedOrderTaskList],
-      };   
+      }; 
+    case RENAME_COLUMN_NAME:
+      const columnUpdate = {...state}.list.map((columnX)=>{
+        if(columnX.id === action.id){
+          columnX.title = action.newName
+        }
+        return columnX;
+      });
+      return {
+        ...state,
+        list: [...columnUpdate],
+      };
     default:
       return state;
   }

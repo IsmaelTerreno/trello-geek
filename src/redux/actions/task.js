@@ -3,6 +3,7 @@ export const SET_TASK_LIST = 'SET_TASK_LIST';
 export const SET_EDITION_MODE = 'SET_EDITION_MODE';
 export const SAVE_TASK = 'SAVE_TASK';
 export const REPLACE_ORDER_TASK = 'REPLACE_ORDER_TASK';
+export const RENAME_COLUMN_NAME = 'RENAME_COLUMN_NAME';
 
 export const setCurrentTask = (task) => {
   return {
@@ -39,5 +40,13 @@ export const replaceOrderTask = (originalTask, newTask, originalTaskColumnId, ne
     newTask,
     originalTaskColumnId,
     newTaskColumnId,
+  };
+};
+
+export const renameColumnById = (id, newName) => {
+  return {
+    type: RENAME_COLUMN_NAME,
+    id,
+    newName,
   };
 };

@@ -6,6 +6,7 @@ import {
     setEditionMode,
     saveTask,
     replaceOrderTask,
+    renameColumnById,
 } from '../redux/actions/task';
 import { 
     getTaskList,
@@ -48,6 +49,9 @@ const mapDispatchToProps = dispatch => {
         },
         onDragItemTask: (originalTask, newTask, originalTaskColumnId, newTaskColumnId)=> {
             dispatch(replaceOrderTask({...originalTask}, {...newTask}, originalTaskColumnId, newTaskColumnId));
+        },
+        onEditColumnName:(id, newName)=> {
+            dispatch(renameColumnById(id, newName));    
         },
     };
 };

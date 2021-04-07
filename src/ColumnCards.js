@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Box, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import TaskCard, { ItemTypes } from './TaskCard';
 import AddIcon from '@material-ui/icons/Add';
@@ -28,7 +28,13 @@ const useStyles = makeStyles((theme) => ({
   addIcon:{
       position:'relative',
       top:'5px',
-  }
+  },
+  columnNaneInput:{
+    padding: '0',
+    '& input':{
+      padding:'6px'
+    }
+  },
 }));
 
 const Droppable = ({
@@ -82,16 +88,42 @@ const ColumnCards = ({
   onDragItemTask,
   columnTasks,
   columnId,
+  onEditColumnName,
 }) => {
   const classes = useStyles();
+  const [ isEditMode, setIsEditMode ] = useState(false);
   return (
     <Paper className={classes.paper}>
-        <Typography  
-        className={classes.title}
-        variant="h6"
+        <Box 
+          component="div" 
+          onClick={()=>{
+            setIsEditMode(true);
+          }}
         >
-            {title}
-        </Typography>
+          { 
+            isEditMode &&
+            <TextField
+              id="columnNameInput"
+              fullWidth
+              variant="outlined"
+              className={classes.columnNaneInput} 
+              defaultValue={title}
+              onBlur={(evt)=> {
+                setIsEditMode(false);
+                onEditColumnName(columnId, evt.target.value);
+              }}
+            />
+          }
+          { 
+            !isEditMode &&
+            <Typography  
+            className={classes.title}
+            variant="h6"
+            >
+                {title}
+            </Typography>
+          }
+        </Box>
         {
            cards.length > 0 && 
            cards.map((task)=> {
@@ -137,6 +169,7 @@ ColumnCards.propTypes = {
     onDragItemTask: PropTypes.func.isRequired,
     columnTasks: PropTypes.array.isRequired,
     columnId: PropTypes.string.isRequired,
+    onEditColumnName: PropTypes.string.isRequired,
 };
 
 export default ColumnCards;
