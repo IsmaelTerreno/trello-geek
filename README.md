@@ -9,5 +9,4 @@
 - Todo list with items that can be marked off
 - You can categorize each item with a Color (Red, Yellow, Green)
 
-Live demo here in Github Pages: 
-https://ismaelterreno.github.io/trello-geek
+[Click here for a live demo in Github Pages](https://ismaelterreno.github.io/trello-geek) 
