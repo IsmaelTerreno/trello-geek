@@ -1,4 +1,4 @@
-Project Specs and Requirements:
+# Project Specs and Requirements:
 - User should be able to add a Card to a column by clicking “Add another card” 
 - When you add another card, you are able to add in Description Text
 - User can edit the text in a Card by hovering over the Card and clicking the Edit pencil icon (this can just be text)
