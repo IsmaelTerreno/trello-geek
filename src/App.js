@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import './App.css';
 import ColumnCards from './ColumnCards';
 import TaskCardForm from './TaskCardForm';
 import PropTypes from 'prop-types';
@@ -10,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
     flexGrow: 1,
-    backgroundColor:'#818c91',
   },
 }));
 

@@ -66,7 +66,7 @@ const Droppable = ({
       style={{
         borderRadius:'5px',
         transition: 'background-color 0.5s',
-        backgroundColor: (isOver) ? '#ccc': 'transparent',
+        backgroundColor: (isOver) ? '#9e9faf': 'transparent',
       }}
     >
       {children}
