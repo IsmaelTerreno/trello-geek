@@ -122,8 +122,8 @@ const TaskCardForm = ({
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" color="secondary" onClick={onCancel}>
-                  Cancel
+                <Button variant="contained" onClick={onCancel}>
+                  Delete
                 </Button> 
               </Grid>
           </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid , Typography} from '@material-ui/core';
 import ColumnCards from './ColumnCards';
 import TaskCardForm from './TaskCardForm';
 import PropTypes from 'prop-types';
@@ -10,6 +10,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     flexGrow: 1,
   },
+  titleApp:{
+    color: '#ffffff',
+    fontSize: '30px',
+    paddingLeft: '5px',
+    fontWeight: 400,
+    marginBottom: '5px',
+    marginTop: '10px',
+  }
 }));
 
 const App = ({
@@ -25,6 +33,16 @@ const App = ({
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item >
+          <Typography
+          className={classes.titleApp}
+          variant="h1"
+          >
+            TASK MANAGEMENT BOARD
+          </Typography>
+        </Grid>
+      </Grid>
       <Grid container spacing={3}>
         {
           columnTasks.length > 0 &&
