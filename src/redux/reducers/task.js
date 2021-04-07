@@ -85,10 +85,10 @@ export const TaskReducer = (state = initState, action) => {
         current: {...action.task}
       };
     case SET_TASK_LIST:
-      const taskListSet = {...action.list.map((columnX)=>{
+      const taskListSet = {...action}.list.map((columnX)=>{
         columnX.tasks = columnX.tasks.sort(byTaskOrder);
         return columnX;
-      })};
+      });
       return {
         ...state,
         list: taskListSet,
