@@ -136,11 +136,18 @@ export const TaskReducer = (state = initState, action) => {
             columnX.tasks = columnX.tasks.filter(x => x.id !== action.newTask.id).sort(byTaskOrder);
           }
           if( action.newTaskColumnId === columnX.id){
+            
             const insertTask = {
               ...action.newTask,
               order: action.originalTask.order,
-            }
+            };
             columnX.tasks.push(insertTask);
+            columnX.tasks = columnX.tasks.map(taskX => {
+              if(taskX.id === action.originalTask.id){
+                taskX.order = columnX.tasks.length;
+              }
+              return taskX
+            });
             columnX.tasks = columnX.tasks.sort(byTaskOrder);
           } 
           return columnX;
