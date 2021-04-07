@@ -74,7 +74,7 @@ let columnTasksDemoData = [
 
 const initState = {
   current: null,
-  list: columnTasks,
+  list: columnTasksDemoData,
   isEditionMode: false,
 };
 const byTaskOrder = (a,b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0);
