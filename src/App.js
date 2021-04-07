@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const App = ({
   columnTasks, 
-  onAddCard, 
+  onAddTask,
+  onDeleteTask, 
   onEditCard,
   onCancelEdit, 
   currentTask,
@@ -53,7 +54,7 @@ const App = ({
                 <ColumnCards 
                 title={column.title} 
                 cards={column.tasks} 
-                onAddCard={()=> onAddCard(columnTasks, idx)}
+                onAddTask={()=> onAddTask(columnTasks, idx)}
                 onEditCard={(task)=> onEditCard(task)}
                 onDragItemTask={onDragItemTask}
                 columnTasks={columnTasks}
@@ -70,6 +71,7 @@ const App = ({
         <TaskCardForm 
           task={currentTask}
           onSave={(task)=> onSaveTask(task)}
+          onDelete={()=> onDeleteTask(currentTask.id)}
           onClose={onCancelEdit}
           onCancel={onCancelEdit}
           open={isEditionMode}
@@ -85,7 +87,8 @@ App.defaultProps = {
 
 App.propTypes = {
   columnTasks: PropTypes.array,
-  onAddCard: PropTypes.func.isRequired,
+  onAddTask: PropTypes.func.isRequired,
+  onDeleteTask: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired,
   currentTask: PropTypes.shape({
     id: PropTypes.string,

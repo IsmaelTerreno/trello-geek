@@ -7,6 +7,7 @@ import {
     saveTask,
     replaceOrderTask,
     renameColumnById,
+    deleteTask,
 } from '../redux/actions/task';
 import { 
     getTaskList,
@@ -25,7 +26,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddCard: (columnTasks, idx)=> {
+        onAddTask: (columnTasks, idx)=> {
             const newTask = {
                 id: uuidv4(), 
                 labelColor: 'green',
@@ -35,6 +36,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(setTaskList(columnTasks));
             dispatch(setEditionMode(true));
             dispatch(setCurrentTask(newTask));
+        },
+        onDeleteTask: (taskId)=> {
+           dispatch(deleteTask(taskId));
+           dispatch(setEditionMode(false)); 
         },
         onEditCard:(task)=> {
             dispatch(setEditionMode(true));

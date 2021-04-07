@@ -5,6 +5,7 @@ import {
   SAVE_TASK,
   REPLACE_ORDER_TASK,
   RENAME_COLUMN_NAME,
+  DELETE_TASK,
 } from '../actions/task';
 import {createSelector} from 'reselect';
 import { v4 as uuidv4 } from 'uuid';
@@ -169,6 +170,15 @@ export const TaskReducer = (state = initState, action) => {
         ...state,
         list: [...columnUpdate],
       };
+    case DELETE_TASK:
+      const deletedItemTaskList = {...state}.list.map((columnX)=> {
+        columnX.tasks = columnX.tasks.filter(x => x.id !== action.taskId).sort(byTaskOrder);
+        return columnX;
+      });  
+      return {
+        ...state,
+        list: [...deletedItemTaskList],
+      };  
     default:
       return state;
   }

@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     textAlign: 'left',
     marginLeft: theme.spacing(1),
+    cursor:'pointer',
   },
   addBtn:{
     color: '#697889',
@@ -83,7 +84,7 @@ const Droppable = ({
 const ColumnCards = ({
   title, 
   cards, 
-  onAddCard,
+  onAddTask,
   onEditCard,
   onDragItemTask,
   columnTasks,
@@ -146,7 +147,7 @@ const ColumnCards = ({
         <Typography  
         className={classes.addBtn}
         variant="subtitle2"
-        onClick={onAddCard}
+        onClick={onAddTask}
         >
             <AddIcon className={classes.addIcon}/> Add another card
         </Typography>
@@ -165,7 +166,7 @@ ColumnCards.propTypes = {
         labelColor: PropTypes.string,
         description: PropTypes.string
     })),
-    onAddCard: PropTypes.func.isRequired,
+    onAddTask: PropTypes.func.isRequired,
     onDragItemTask: PropTypes.func.isRequired,
     columnTasks: PropTypes.array.isRequired,
     columnId: PropTypes.string.isRequired,

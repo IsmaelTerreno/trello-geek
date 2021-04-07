@@ -55,6 +55,7 @@ const TaskCardForm = ({
   open,
   onClose,
   onSave,
+  onDelete,
   onCancel,
 }) => {
   const classes = useStyles();
@@ -122,7 +123,7 @@ const TaskCardForm = ({
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" onClick={onCancel}>
+                <Button variant="contained" onClick={onDelete}>
                   Delete
                 </Button> 
               </Grid>
@@ -148,6 +149,7 @@ TaskCardForm.propTypes = {
     task: taskShape,
     onClose: PropTypes.func,
     onSave: PropTypes.func,
+    onDelete: PropTypes.func,
     onCancel: PropTypes.func,
     open: PropTypes.bool 
 };
