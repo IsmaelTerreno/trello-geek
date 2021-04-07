@@ -31,20 +31,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Droppable = ({children, onDragItemTask, task, columnTasks})=>{
+const Droppable = ({
+  children, 
+  onDragItemTask, 
+  task, 
+  columnTasks, 
+  columnId,
+})=>{
   const [ { isOver }, drop] = useDrop(
     () => ({
       accept: ItemTypes.TASK,
       drop: (item) => {
         const dataDroppable = task;
         let dataDragable = item;
+        let dataDragableColumnId = '';
         columnTasks.forEach(columnX => {
           const taskFreshInfo = columnX.tasks.find(x => x.id === item.id);
           if(taskFreshInfo){
             dataDragable = taskFreshInfo;
+            dataDragableColumnId = columnX.id;
           }
         });
-        onDragItemTask(dataDroppable, dataDragable);
+        onDragItemTask(dataDroppable, dataDragable, dataDragableColumnId, columnId);
       },
       canDrop: (item) => item.id !== task.id,
       collect: (monitor) => ({
@@ -73,6 +81,7 @@ const ColumnCards = ({
   onEditCard,
   onDragItemTask,
   columnTasks,
+  columnId,
 }) => {
   const classes = useStyles();
   return (
@@ -92,6 +101,7 @@ const ColumnCards = ({
                   onDragItemTask={onDragItemTask}
                   task={task}
                   columnTasks={columnTasks}
+                  columnId={columnId}
                 >
                   <TaskCard
                     task={task}
@@ -125,7 +135,8 @@ ColumnCards.propTypes = {
     })),
     onAddCard: PropTypes.func.isRequired,
     onDragItemTask: PropTypes.func.isRequired,
-    columnTasks: PropTypes.array,
+    columnTasks: PropTypes.array.isRequired,
+    columnId: PropTypes.string.isRequired,
 };
 
 export default ColumnCards;

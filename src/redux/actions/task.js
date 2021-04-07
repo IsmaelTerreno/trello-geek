@@ -32,10 +32,12 @@ export const saveTask = (task) => {
   };
 };
 
-export const replaceOrderTask = (originalTask, newTask) => {
+export const replaceOrderTask = (originalTask, newTask, originalTaskColumnId, newTaskColumnId) => {
   return {
     type: REPLACE_ORDER_TASK,
     originalTask,
     newTask,
+    originalTaskColumnId,
+    newTaskColumnId,
   };
 };

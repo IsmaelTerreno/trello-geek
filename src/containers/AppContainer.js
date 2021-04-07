@@ -46,8 +46,8 @@ const mapDispatchToProps = dispatch => {
             dispatch(saveTask(task));    
             dispatch(setEditionMode(false));
         },
-        onDragItemTask: (originalTask, newTask)=> {
-            dispatch(replaceOrderTask({...originalTask}, {...newTask}));
+        onDragItemTask: (originalTask, newTask, originalTaskColumnId, newTaskColumnId)=> {
+            dispatch(replaceOrderTask({...originalTask}, {...newTask}, originalTaskColumnId, newTaskColumnId));
         },
     };
 };

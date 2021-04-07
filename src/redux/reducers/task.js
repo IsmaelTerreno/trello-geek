@@ -110,16 +110,42 @@ export const TaskReducer = (state = initState, action) => {
         list: updatedTaskList,
       };
     case REPLACE_ORDER_TASK:
-      const replacedOrderTaskList = {...state}.list.map((columnX)=> {
-        const taskA = columnX.tasks.find(x => x.id === action.newTask.id);
-        const taskB = columnX.tasks.find(x => x.id === action.originalTask.id);
+      const allColumns = {...state}.list;
+      const orderSameColumn = (column) => {
+        const taskA = column.tasks.find(x => x.id === action.newTask.id);
+        const taskB = column.tasks.find(x => x.id === action.originalTask.id);
         if(taskA && taskB){
           taskA.order = action.originalTask.order;
           taskB.order = action.newTask.order;
-          columnX.tasks = columnX.tasks.sort(byTaskOrder);
+          column.tasks = column.tasks.sort(byTaskOrder);
         }
-        return columnX;
-      });
+        return column;
+      };
+      let replacedOrderTaskList = allColumns;
+      if( action.originalTaskColumnId === action.newTaskColumnId ){
+        replacedOrderTaskList = allColumns.map((columnX)=> {
+          if( action.originalTaskColumnId === columnX.id){
+            return orderSameColumn(columnX);
+          } 
+          return columnX;
+        }); 
+      }
+      if( action.originalTaskColumnId !== action.newTaskColumnId ){
+        replacedOrderTaskList = allColumns.map((columnX)=> {
+          if( action.originalTaskColumnId === columnX.id){
+            columnX.tasks = columnX.tasks.filter(x => x.id !== action.newTask.id).sort(byTaskOrder);
+          }
+          if( action.newTaskColumnId === columnX.id){
+            const insertTask = {
+              ...action.newTask,
+              order: action.originalTask.order,
+            }
+            columnX.tasks.push(insertTask);
+            columnX.tasks = columnX.tasks.sort(byTaskOrder);
+          } 
+          return columnX;
+        });
+      }
       return {
         ...state,
         list: [...replacedOrderTaskList],

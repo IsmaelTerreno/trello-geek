@@ -32,7 +32,7 @@ const App = ({
           columnTasks.length > 0 &&
           columnTasks.map((column, idx)=>{
             return(
-              <Grid item xs key={'task-column-' + idx}>
+              <Grid item xs key={column.id}>
                 <ColumnCards 
                 title={column.title} 
                 cards={column.tasks} 
@@ -40,6 +40,7 @@ const App = ({
                 onEditCard={(task)=> onEditCard(task)}
                 onDragItemTask={onDragItemTask}
                 columnTasks={columnTasks}
+                columnId={column.id}
                 />
               </Grid>
             );
