@@ -8,3 +8,6 @@
 - User can also edit the Names of the Columns by clicking on the Name
 - Todo list with items that can be marked off
 - You can categorize each item with a Color (Red, Yellow, Green)
+
+Live demo here in Github Pages: 
+https://ismaelterreno.github.io/trello-geek
