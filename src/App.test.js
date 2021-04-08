@@ -1,4 +1,4 @@
-import { renderWithState, initState, screen } from './test-utils';
+import { renderWithState, initState, screen, fireEvent } from './test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import App from './App';
 import { v4 as uuidv4 } from 'uuid';
@@ -86,19 +86,7 @@ describe('App component', () => {
       initState
     );
     expect(screen.getByTestId('App')).toBeInTheDocument();
-  });
-
-  test('Should call onLoad one time.', () => {
-    renderWithState(
-      <App 
-        {...getTestPropsApp()}
-      />,
-      initState
-    );
-    //expect(onLoadMock.mock.calls.length).toBe(1);
-  });
-  
-  
+  });  
 
   test('Should have 3 ColumnCards components.', () => {
     renderWithState(
@@ -107,7 +95,5 @@ describe('App component', () => {
     );
     expect(screen.getAllByTestId('ColumnCards').length).toBe(3);
   });
-
-  
   
 });

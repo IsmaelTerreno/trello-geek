@@ -83,6 +83,7 @@ const TaskCard = ({
             </Grid>
             <Grid item xs={1}>
                 <EditIcon 
+                data-testid="EditIcon"
                 className={classes.closeIcon} 
                 style={{visibility: !isEditHover || isDragging ? 'hidden' : 'visible' }}
                 onClick={onClickEdit}
