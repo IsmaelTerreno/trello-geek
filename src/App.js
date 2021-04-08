@@ -34,7 +34,10 @@ const App = ({
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div 
+      data-testid="App"
+      className={classes.root}
+    >
       <Grid container spacing={3}>
         <Grid item >
           <Typography

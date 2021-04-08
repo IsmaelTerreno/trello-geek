@@ -64,7 +64,8 @@ const TaskCard = ({
     [task]
   );
   return (
-    <div  
+    <div
+      data-testid="TaskCard"  
       onMouseEnter={()=> setIsEditHover(true)} 
       onMouseLeave={()=> setIsEditHover(false)}
     >

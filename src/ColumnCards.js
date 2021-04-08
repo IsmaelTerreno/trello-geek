@@ -94,7 +94,10 @@ const ColumnCards = ({
   const classes = useStyles();
   const [ isEditMode, setIsEditMode ] = useState(false);
   return (
-    <Paper className={classes.paper}>
+    <Paper 
+      data-testid="ColumnCards"
+      className={classes.paper}
+    >
         <Box 
           component="div" 
           onClick={()=>{
@@ -170,7 +173,7 @@ ColumnCards.propTypes = {
     onDragItemTask: PropTypes.func.isRequired,
     columnTasks: PropTypes.array.isRequired,
     columnId: PropTypes.string.isRequired,
-    onEditColumnName: PropTypes.string.isRequired,
+    onEditColumnName: PropTypes.func.isRequired,
 };
 
 export default ColumnCards;
